@@ -8,13 +8,7 @@ import { z } from 'zod';
 import { generateAccessToken,verifyRefreshToken,generateRefreshToken } from "../utils/tokenUtils.js";
 
 class AuthController {
- 
-
-   
-
-    
-
-    static async register(req, res) {
+  static async register(req, res) {
         try {
             const validatedData = registerSchema.parse(req.body);
             const hashedPassword = await bcrypt.hash(validatedData.password, 10);

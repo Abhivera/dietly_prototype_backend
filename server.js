@@ -3,6 +3,7 @@ import express from "express";
 import authRoutes from "./src/routes/authRoutes.js";
 import cors from "cors"; // Import CORS middleware
 import { swaggerDocs } from "./src/docs/swagger.js";
+import profileRoutes from './src/routes/profile.js';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));  // Handles form-url-encoded bo
 
 // Routes
 app.use("/auth", authRoutes);
+app.use('/api_v1', profileRoutes);
 
 // Set up the server port
 const PORT = process.env.PORT || 5000;
