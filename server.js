@@ -4,9 +4,13 @@ import authRoutes from "./src/routes/authRoutes.js";
 import cors from "cors"; // Import CORS middleware
 import { swaggerDocs } from "./src/docs/swagger.js";
 import profileRoutes from './src/routes/profile.js';
+import preferencesRouter from './src/routes/preferences.js';
+import foodRouter from './src/routes/food.js';
+import requestLogger from "./src/middlewares/requestLogger.js";
 
 const app = express();
 
+app.use(requestLogger);
 // Enable CORS for all origins (you can modify this for more security)
 // Configure CORS
 app.use(
@@ -24,6 +28,8 @@ app.use(express.urlencoded({ extended: true }));  // Handles form-url-encoded bo
 // Routes
 app.use("/auth", authRoutes);
 app.use('/api_v1', profileRoutes);
+app.use('/api_v1',preferencesRouter);
+app.use('/api_v1',foodRouter);
 
 // Set up the server port
 const PORT = process.env.PORT || 5000;

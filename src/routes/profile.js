@@ -1,12 +1,12 @@
 import express from 'express';
 import { getProfile, updateProfile } from '../controllers/profileController.js';
-import authenticate from '../controllers/authController.js';
+import {authMiddleware} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
 /**
  * @swagger
- * /profile:
+ * /api_v1/profile:
  *   get:
  *     summary: Fetch user profile
  *     description: Retrieve the user profile including preferences.
@@ -43,11 +43,11 @@ const router = express.Router();
  *       404:
  *         description: User profile not found.
  */
-router.get('/profile', authenticate, getProfile);
+router.get('/profile', authMiddleware, getProfile);
 
 /**
  * @swagger
- * /profile:
+ * /api_v1/profile:
  *   put:
  *     summary: Update user profile
  *     description: Modify user details including weight, goals, and activity level.
@@ -93,6 +93,6 @@ router.get('/profile', authenticate, getProfile);
  *       401:
  *         description: Unauthorized.
  */
-router.put('/profile', authenticate, updateProfile);
+router.put('/profile', authMiddleware, updateProfile);
 
 export default router;
