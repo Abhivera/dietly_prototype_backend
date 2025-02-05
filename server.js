@@ -7,6 +7,10 @@ import profileRoutes from './src/routes/profile.js';
 import preferencesRouter from './src/routes/preferences.js';
 import foodRouter from './src/routes/food.js';
 import requestLogger from "./src/middlewares/requestLogger.js";
+import mealRoutes from "./src/routes/meal.js";
+import exerciseRoutes from "./src/routes/exercise.js";
+import "./src/cron/dailyEmailJobs.js"; // Import cron job
+
 
 const app = express();
 
@@ -27,9 +31,12 @@ app.use(express.urlencoded({ extended: true }));  // Handles form-url-encoded bo
 
 // Routes
 app.use("/auth", authRoutes);
+
 app.use('/api_v1', profileRoutes);
 app.use('/api_v1',preferencesRouter);
 app.use('/api_v1',foodRouter);
+app.use('/api_v1',mealRoutes);
+app.use('/api_v1',exerciseRoutes);
 
 // Set up the server port
 const PORT = process.env.PORT || 5000;

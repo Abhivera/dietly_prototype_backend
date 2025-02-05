@@ -42,7 +42,7 @@ const router = Router();
  *       500:
  *         description: Internal Server Error
  */
-router.get("/", getFoods);
+router.get("/foods", getFoods);
 
 /**
  * @swagger
@@ -98,7 +98,7 @@ router.get("/", getFoods);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/", authMiddleware, addFood);
+router.post("/foods", authMiddleware, addFood);
 
 /**
  * @swagger
@@ -126,6 +126,6 @@ router.post("/", authMiddleware, addFood);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/:id", getFoodById);
+router.get("/foods/:id", getFoodById);
 
 export default router;

@@ -1,4 +1,30 @@
 -- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "email" TEXT,
+    "password" TEXT,
+    "googleId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RefreshToken" (
+    "id" SERIAL NOT NULL,
+    "token" TEXT NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
+
+    CONSTRAINT "RefreshToken_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "UserProfile" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
@@ -9,6 +35,8 @@ CREATE TABLE "UserProfile" (
     "gender" TEXT NOT NULL,
     "goal" TEXT NOT NULL,
     "activityLevel" TEXT NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("id")
 );
@@ -20,6 +48,8 @@ CREATE TABLE "UserPreferences" (
     "dailyCalorieGoal" DOUBLE PRECISION NOT NULL,
     "waterIntakeGoal" DOUBLE PRECISION NOT NULL,
     "userId" INTEGER NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "UserPreferences_pkey" PRIMARY KEY ("id")
 );
@@ -34,6 +64,8 @@ CREATE TABLE "FoodItem" (
     "protein" DOUBLE PRECISION NOT NULL,
     "fat" DOUBLE PRECISION NOT NULL,
     "servingSize" TEXT NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "FoodItem_pkey" PRIMARY KEY ("id")
 );
@@ -47,6 +79,8 @@ CREATE TABLE "MealLog" (
     "foodId" INTEGER NOT NULL,
     "quantity" DOUBLE PRECISION NOT NULL,
     "totalCalories" DOUBLE PRECISION NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "MealLog_pkey" PRIMARY KEY ("id")
 );
@@ -56,6 +90,8 @@ CREATE TABLE "Exercise" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "caloriesBurnedPerMinute" DOUBLE PRECISION NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "Exercise_pkey" PRIMARY KEY ("id")
 );
@@ -68,6 +104,8 @@ CREATE TABLE "ExerciseLog" (
     "date" TIMESTAMP(3) NOT NULL,
     "duration" DOUBLE PRECISION NOT NULL,
     "caloriesBurned" DOUBLE PRECISION NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "ExerciseLog_pkey" PRIMARY KEY ("id")
 );
@@ -80,15 +118,29 @@ CREATE TABLE "ProgressLog" (
     "weight" DOUBLE PRECISION NOT NULL,
     "caloriesBurned" DOUBLE PRECISION NOT NULL,
     "caloriesConsumed" DOUBLE PRECISION NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
 
     CONSTRAINT "ProgressLog_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_googleId_key" ON "User"("googleId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "RefreshToken_token_key" ON "RefreshToken"("token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserProfile_userId_key" ON "UserProfile"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserPreferences_userId_key" ON "UserPreferences"("userId");
+
+-- AddForeignKey
+ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

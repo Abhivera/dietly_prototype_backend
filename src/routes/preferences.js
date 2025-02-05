@@ -10,7 +10,7 @@ const router = express.Router();
  *     summary: Fetch user preferences
  *     tags: [Preferences]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     responses:
  *       200:
  *         description: User preferences retrieved successfully
@@ -19,7 +19,7 @@ const router = express.Router();
  *       500:
  *         description: Internal Server Error
  */
-router.get("/",authMiddleware, getUserPreferences);
+router.get("/preferences",authMiddleware, getUserPreferences);
 
 /**
  * @swagger
@@ -28,7 +28,7 @@ router.get("/",authMiddleware, getUserPreferences);
  *     summary: Update user preferences
  *     tags: [Preferences]
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -48,6 +48,6 @@ router.get("/",authMiddleware, getUserPreferences);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/",authMiddleware, updateUserPreferences);
+router.put("/preferences",authMiddleware, updateUserPreferences);
 
 export default router;
