@@ -9,7 +9,7 @@ import foodRouter from './src/routes/food.js';
 import requestLogger from "./src/middlewares/requestLogger.js";
 import mealRoutes from "./src/routes/meal.js";
 import exerciseRoutes from "./src/routes/exercise.js";
-import "./src/cron/dailyEmailJobs.js"; // Import cron job
+// import "./src/cron/dailyEmailJobs.js"; // Import cron job
 
 
 const app = express();

@@ -302,3 +302,13 @@
 2025-02-05 09:22:57 [INFO]: IP: ::1 - POST /auth/login
 2025-02-05 09:23:26 [INFO]: IP: ::1 - GET /api_v1/foods
 2025-02-05 09:23:39 [INFO]: IP: ::1 - GET /api_v1/exercises
+2025-02-09 00:10:08 [INFO]: IP: ::1 - GET /api-docs/
+2025-02-09 00:10:08 [INFO]: IP: ::1 - GET /api-docs/swagger-ui.css
+2025-02-09 00:10:08 [INFO]: IP: ::1 - GET /api-docs/swagger-ui-bundle.js
+2025-02-09 00:10:08 [INFO]: IP: ::1 - GET /api-docs/swagger-ui-standalone-preset.js
+2025-02-09 00:10:08 [INFO]: IP: ::1 - GET /api-docs/swagger-ui-init.js
+2025-02-09 00:17:58 [INFO]: IP: ::1 - POST /auth/login
+2025-02-09 00:18:18 [INFO]: IP: ::1 - POST /auth/register
+2025-02-09 00:18:23 [INFO]: IP: ::1 - POST /auth/login
+2025-02-09 00:19:06 [INFO]: IP: ::1 - GET /api_v1/meals
+2025-02-09 00:19:18 [INFO]: IP: ::1 - GET /api_v1/foods

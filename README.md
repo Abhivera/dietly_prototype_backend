@@ -1,3 +1,28 @@
+# 📌 Environment Variables
+
+Create a `.env` file in the root directory and add the following variables:
+
+```ini
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME?sslmode=require"
+JWT_SECRET=your_jwt_secret_key
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=your_email_user
+EMAIL_PASS=your_email_password
+```
+👉 **Replace the placeholders with your actual credentials before running the project.**
+
+---
+# Running with Docker 
+1. **Build the Docker image**
+   ```sh
+   docker build -t dietly_nodejs_backend .
+   ```
+
+2. **Run the container** add in  
+   ```sh
+   docker run -p 5000:5000 --env-file .env dietly_nodejs_backend
+   ```
 # User Management & Fitness Tracker API Documentation
 
 This document outlines the API endpoints and functionality for a comprehensive user management system, food database, meal tracker, exercise tracker, personalized recommendations, and analytics for fitness and wellness tracking.
