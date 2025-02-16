@@ -1,5 +1,5 @@
 import express from "express";
-// import { PORT } from "./src/config/dotenv.js";
+import { PORT } from "./src/config/dotenv.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import cors from "cors"; // Import CORS middleware
 import { swaggerDocs } from "./src/docs/swagger.js";
@@ -9,12 +9,28 @@ import foodRouter from './src/routes/food.js';
 import requestLogger from "./src/middlewares/requestLogger.js";
 import mealRoutes from "./src/routes/meal.js";
 import exerciseRoutes from "./src/routes/exercise.js";
-// import "./src/cron/dailyEmailJobs.js"; // Import cron job
+import rateLimit from "express-rate-limit";
+import recommendation from "./src/routes/recommendation.js";
+import "./src/cron/dailyEmailJobs.js"; // Import cron job
 
 
 const app = express();
 
 app.use(requestLogger);
+// Rate limit middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Max 100 requests per IP
+  message: { error: "Too many requests, please try again later." },
+  headers: true, // Show rate limit info in response headers
+});
+
+// Apply to all routes
+app.use(limiter);
+
+
+
+
 // Enable CORS for all origins (you can modify this for more security)
 // Configure CORS
 app.use(
@@ -37,9 +53,8 @@ app.use('/api_v1',preferencesRouter);
 app.use('/api_v1',foodRouter);
 app.use('/api_v1',mealRoutes);
 app.use('/api_v1',exerciseRoutes);
+app.use('/api_v1',recommendation);
 
-// Set up the server port
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
