@@ -2,7 +2,7 @@ import cron from "node-cron";
 import { sendEmail } from "../config/email.js";
 
 // Define email recipients
-const recipients = ["abhijitakadeveloper@gmail.com"];
+const recipients = ["moviesabhijit@gmail.com"]; 
 
 // Helper function to validate email
 const isValidEmail = (email) => {
@@ -14,9 +14,9 @@ const isValidEmail = (email) => {
 console.log('🧪 Running test email...');
 try {
     await sendEmail(
-        "abhijitakadeveloper@gmail.com",
+        "moviesabhijit@gmail.com", // Must be an authorized recipient
         "Test Email",
-        "This is a test email to verify the email configuration."
+        "This is a test email to verify the Mailgun configuration."
     );
     console.log('✅ Test email sent successfully');
 } catch (error) {

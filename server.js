@@ -11,6 +11,7 @@ import mealRoutes from "./src/routes/meal.js";
 import exerciseRoutes from "./src/routes/exercise.js";
 import rateLimit from "express-rate-limit";
 import recommendation from "./src/routes/recommendation.js";
+import analytics from "./src/routes/analytics.js"
 import "./src/cron/dailyEmailJobs.js"; // Import cron job
 
 
@@ -54,6 +55,7 @@ app.use('/api_v1',foodRouter);
 app.use('/api_v1',mealRoutes);
 app.use('/api_v1',exerciseRoutes);
 app.use('/api_v1',recommendation);
+app.use('/api_v1',analytics);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

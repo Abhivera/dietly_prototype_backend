@@ -1,7 +1,7 @@
 import express from 'express';
 import { getProgressData, getChartData } from '../services/analytics.js';
-import { asyncHandler } from '../middleware/async.middleware.js';
-import { authMiddleware } from '../middleware/auth.middleware.js';
+import { asyncHandler } from '../middlewares/asyncMiddleware.js';
+import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 

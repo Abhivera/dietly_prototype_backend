@@ -3,14 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Create transporter with exact Brevo configuration
+// Create transporter with Mailgun configuration
 const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
+    host: 'smtp.mailgun.org',
     port: 587,
     secure: false,
     auth: {
-        user: '84fe15001@smtp-brevo.com', // This must match exactly
-        pass: process.env.EMAIL_PASS // Your Master Password from Brevo
+        user: process.env.MAILGUN_USER, // Your Mailgun SMTP credentials
+        pass: process.env.MAILGUN_PASSWORD // Your Mailgun SMTP password
     },
     debug: true,
     logger: true
@@ -18,17 +18,22 @@ const transporter = nodemailer.createTransport({
 
 export const sendEmail = async (to, subject, text) => {
     try {
+        // Check if recipient is in authorized list for sandbox domain
+        if (!isAuthorizedRecipient(to)) {
+            console.warn(`⚠️ Warning: ${to} is not an authorized recipient for sandbox domain. Email may not be delivered.`);
+        }
+
         const mailOptions = {
-            from: '"Fitness App" <84fe15001@smtp-brevo.com>', // Must match the SMTP login
+            from: `"Fitness App" <${process.env.MAILGUN_FROM}>`,
             to,
             subject,
             text,
             headers: {
-                'X-Mailin-Tag': 'fitness-app-notification'
+                'X-Service-Tag': 'fitness-app-notification'
             }
         };
 
-        console.log('📧 Attempting to send email:', {
+        console.log('📧 Attempting to send email via Mailgun:', {
             to,
             subject,
             textLength: text.length
@@ -45,7 +50,7 @@ export const sendEmail = async (to, subject, text) => {
 
         return info;
     } catch (error) {
-        console.error('❌ Error sending email:', {
+        console.error('❌ Error sending email via Mailgun:', {
             error: error.message,
             code: error.code,
             command: error.command,
@@ -54,3 +59,10 @@ export const sendEmail = async (to, subject, text) => {
         throw error;
     }
 };
+
+// Helper function to check if recipient is authorized (for sandbox domains)
+function isAuthorizedRecipient(email) {
+    // Currently you have only one authorized recipient
+    const authorizedRecipients = ['moviesabhijit@gmail.com'];
+    return authorizedRecipients.includes(email);
+}
