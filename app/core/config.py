@@ -12,7 +12,9 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
     
     # OpenAI
-    openai_api_key: str
+    # openai_api_key: str
+    # Gemini 
+    gemini_api_key: str
     
     # File Upload
     upload_dir: str = "uploads"
